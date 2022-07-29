@@ -7,7 +7,7 @@ describe('Testes da função HandlerElephants', () => {
     expect(handlerElephants('count')).toBe(4);
   });
   it('retorna um array com a relação dos nomes de todos os elefantes', () => {
-    expect(handlerElephants('names')).toEqual(['Ilana', 'Orval', 'Bea', 'Jefferson']);
+    expect(handlerElephants('names').includes('Jefferson')).toBeTruthy();
   });
   it('retorna a média de idade dos elefantes', () => {
     expect(handlerElephants('averageAge')).toBeCloseTo(10.5);
