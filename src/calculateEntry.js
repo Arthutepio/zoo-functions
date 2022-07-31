@@ -16,7 +16,7 @@ function countEntrants(entrants) {
     adult: 0,
     senior: 0,
   };
-  entrants.filter((val) => {
+  entrants.forEach((val) => {
     if (val.age < 18) {
       obj.child += 1;
     } else if (val.age >= 18 && val.age < 50) {
@@ -29,8 +29,7 @@ function countEntrants(entrants) {
 }
 function calculateEntry(entrants) {
   // seu código aqui
-  if (!entrants) return 0;
-  if (Object.keys(entrants).length === 0) return 0;
+  if (!entrants || JSON.stringify(entrants) === '{}') return 0;
   const { adult: aPrice, senior: sPrice, child: cPrice } = countEntrants(entrants);
   return data.prices.adult * aPrice + data.prices.senior * sPrice + data.prices.child * cPrice;
 }
