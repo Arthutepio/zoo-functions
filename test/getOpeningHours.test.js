@@ -24,14 +24,24 @@ describe('Testes da função getOpeningHours', () => {
     const expected = 'The zoo is open';
     expect(actual).toBe(expected);
   });
-  it('Para os argumentos Wednesday e 09:00-PM deve retornar a string `The zoo is closed`', () => {
-    const actual = getOpeningHours('Wednesday', '09:00-PM');
-    const expected = 'The zoo is closed';
-    expect(actual).toBe(expected);
+  it('Para os argumentos Thu e 09:00-AM deve lançar uma exceção com a mensagem: `The day must be valid. Example: Monday`', () => {
+    const actual = () => getOpeningHours('Thu', '09:00-AM');
+    const expected = 'The day must be valid. Example: Monday';
+    expect(actual).toThrow(expected);
   });
-//   it('', () => {
-//     const actual = getOpeningHours();
-//     const expected = ;
-//     expect(actual).toEqual(expected);
-//   });
+  it('Para os argumentos Friday e 09:00-ZM deve lançar uma exceção com a mensagem: `The abbreviation must be \'AM\' or \'PM\'`', () => {
+    const actual = () => getOpeningHours('Friday', '09:00-ZM');
+    const expected = 'The abbreviation must be \'AM\' or \'PM\'';
+    expect(actual).toThrow(expected);
+  });
+  it('Para os argumentos Saturday e C9:00-AM deve lançar uma exceção com a mensagem: `The hour should represent a number`', () => {
+    const actual = () => getOpeningHours('Saturday', 'C9:00-AM');
+    const expected = 'The hour should represent a number';
+    expect(actual).toThrow(expected);
+  });
+  it('Para os argumentos Sunday e 09:c0-AM deve lançar uma exceção com a mensagem: `The minutes should represent a number`', () => {
+    const actual = () => getOpeningHours('Sunday', '09:c0-AM');
+    const expected = 'The minutes should represent a number';
+    expect(actual).toThrow(expected);
+  });
 });
