@@ -4,7 +4,7 @@ const { species, employees } = data;
 function getOldestFromFirstSpecies(id) {
   // seu código aqui
   const animalId = employees.find((employee) => employee.id === id).responsibleFor[0];
-  // console.log('id', animalId);//check no id e encontra a pimeira espécie que o id é responsável
+  console.log('id', animalId);// check no id e encontra a pimeira espécie que o id é responsável
   const residentAnimals = species.find((res) => res.id === animalId).residents;
   // console.log(residentAnimals);// retorna um array com todos aimais da especie
   let count = 0;
