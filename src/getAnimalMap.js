@@ -1,13 +1,7 @@
 const data = require('../data/zoo_data');
 
 const { species } = data;
-// {
-//   NE: [ /* dados aqui */],
-//   NW: [/* dados aqui */],
-//   SE: [/* dados aqui */],
-//   SW: [/* dados aqui */],
-// }
-// 1 - caso a função não receba nenhum parametro, receba apenas o parâmetro {sex: female}, receba apenas o parâmetro {sex: female, sorted: true}
+// // 1 - caso a função não receba nenhum parametro
 const semParametro = () => {
   const localizacao = {
     NE: [],
@@ -20,7 +14,7 @@ const semParametro = () => {
   return localizacao;
 };
 
-const buscaPorNome = (options) => {
+const filtraPorNome = (options) => {
   const localizacao = {
     NE: [],
     NW: [],
@@ -29,26 +23,43 @@ const buscaPorNome = (options) => {
   };
   species.map((specie) => {
     const object = {};
-    object[specie.name] = specie.residents.map((nome) => nome.name);
-    console.log(object); // Até aqui ok, retorna o esperado
+    object[specie.name] = specie.residents.map((element) => element.name);
+    console.log(object); // Até aqui ok,
     if (options.includeNames && options.sorted) {
       object[specie.name].sort();
     }
     return localizacao[specie.location].push(object);
   });
-  console.log(localizacao);
   return localizacao;
 };
 
+const filtraPorSexo = (options) => {
+  const localizacao = {
+    NE: [],
+    NW: [],
+    SE: [],
+    SW: [],
+  };
+  species.map((specie) => {
+    const animal = specie.residents
+      .map((resident) => (resident.sex === options.sex ? resident.name : undefined));
+    const objSexo = {};
+    objSexo[specie.name] = animal.filter((sexo) => sexo !== undefined);
+    if (options.sorted) {
+      objSexo[specie.name].sort();
+    }
+    return localizacao[specie.location].push(objSexo);
+  });
+  return localizacao;
+};
 function getAnimalMap(options) {
-  // seu código aqui
   if (!options || !options.includeNames) {
     return semParametro();
   }
-  return buscaPorNome(options);
+  if (options.sex) {
+    return filtraPorSexo(options);
+  }
+  return filtraPorNome(options);
 }
-getAnimalMap({ includeNames: true });
-// buscaPorNome();
-// semParametro();
-// console.log(semParametro());
+getAnimalMap({ sex: 'female' });
 module.exports = getAnimalMap;
