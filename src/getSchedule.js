@@ -1,11 +1,7 @@
-// const { species } = require('../data/zoo_data');
 const data = require('../data/zoo_data');
 
-// const test = data.species.filter((animal) => animal.availability.includes('Sunday'))
-//   .map((element) => element.name);
-// console.log(test);
-
 const { hours } = data;
+
 const weekDays = {
   Monday: {
     officeHour: 'CLOSED',
@@ -42,20 +38,21 @@ const weekDays = {
       .map((element) => element.name),
   },
 };
-// console.log(weekDays);
 
 function getSchedule(scheduleTarget) {
-  // seu código aqui
   if (data.species.some((animal) => animal.name === scheduleTarget)) {
     const checkName = data.species.find((element) => element.name === scheduleTarget).availability;
+    
     return checkName;
   }
+
   if (Object.keys(weekDays).some((day) => day === scheduleTarget)) {
     const result = {};
     result[scheduleTarget] = weekDays[scheduleTarget];
+    
     return result;
   }
   return weekDays;
 }
-// console.log(getSchedule('tigers'));
+
 module.exports = getSchedule;

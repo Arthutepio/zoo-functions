@@ -10,12 +10,12 @@ const entrant = [
 ];
 
 function countEntrants(entrants) {
-  // seu código aqui.
   const obj = {
     child: 0,
     adult: 0,
     senior: 0,
   };
+
   entrants.forEach((val) => {
     if (val.age < 18) {
       obj.child += 1;
@@ -25,14 +25,16 @@ function countEntrants(entrants) {
       obj.senior += 1;
     }
   }, {});
+  
   return obj;
 }
+
 function calculateEntry(entrants) {
-  // seu código aqui
   if (!entrants || JSON.stringify(entrants) === '{}') return 0;
+  
   const { adult: aPrice, senior: sPrice, child: cPrice } = countEntrants(entrants);
+  
   return data.prices.adult * aPrice + data.prices.senior * sPrice + data.prices.child * cPrice;
 }
 
-countEntrants(entrant);
 module.exports = { calculateEntry, countEntrants };

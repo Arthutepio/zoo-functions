@@ -21,6 +21,7 @@ const validateHour = (hour) => {
   isStringRepresentNumber(dataHours, 'hour');
   isStringRepresentNumber(dataMinutes, 'minutes');
   validateAbbreviation(abbreviation);
+  
   switch (false) {
   case Number(dataHours) >= 0 && Number(dataHours) <= 12:
     throw new Error('The hour must be between 0 and 12');
@@ -52,15 +53,21 @@ const openOrClosed = (period, hour, open, close) => {
 
 const getOpeningHours = (day, dataHour) => {
   if (empty(day, dataHour)) return hours;
+  
   const adjustedDay = `${day[0].toUpperCase()}${day.slice(1).toLowerCase()}`;
+  
   validateDay(adjustedDay);
   validateHour(dataHour);
+  
   const { open, close } = hours[adjustedDay];
+  
   if (empty(close, open)) return 'The zoo is closed';
+  
   const period = dataHour.split('-')[1].toUpperCase();
   const hour = Number(dataHour.split(':')[0]);
   let message = 'The zoo is ';
   message += openOrClosed(period, hour, open, close) ? 'open' : 'closed';
+  
   return message;
 };
 
